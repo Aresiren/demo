@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<refund>
+  <is_success>F</is_success>
+  <error_code>ILLEGAL_ARGUMENT</error_code>
+  <error_msg>票号[8362440673363]航段有误[HGHSJW]</error_msg>
+</refund>

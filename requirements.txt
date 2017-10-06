@@ -1,0 +1,4 @@
+BaseHTTPServer
+SocketServer
+simplejson==3.7.3
+random
