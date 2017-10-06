@@ -2,7 +2,7 @@
 
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import SocketServer
-import simplejson
+#import simplejson
 import random
 import sys
 reload(sys) 
@@ -31,11 +31,11 @@ class S(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-        data = simplejson.loads(self.data_string)
-        with open("test123456.json", "w") as outfile:
-            simplejson.dump(data, outfile)
-        print "{}".format(data)
-        f = open("for_presen.py")
+#        data = simplejson.loads(self.data_string)
+#        with open("test123456.json", "w") as outfile:
+#            simplejson.dump(data, outfile)
+#        print "{}".format(data)
+        f = open("douban1.txt")
         self.wfile.write(f.read())
         return
 
