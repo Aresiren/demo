@@ -5,8 +5,11 @@ import SocketServer
 #import simplejson
 import random
 import sys
+import os
 reload(sys) 
 sys.setdefaultencoding('utf8')
+# sys.path.append(str(os.getcwd()).split(r'\test')[0])
+sys.path.append(os.path.pardir)
 
 class S(BaseHTTPRequestHandler):
     def _set_headers(self):
@@ -40,15 +43,26 @@ class S(BaseHTTPRequestHandler):
         return
 
 
-def run(server_class=HTTPServer, handler_class=S, port=8080):
+def runMy(server_class=HTTPServer, handler_class=S, port=8080):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print 'Starting httpd...'
     httpd.serve_forever()
 
 
-print '开始。。'
-run()
+
+# runMy()
+if __name__ == "__main__":
+    print 'server开始。。'
+    # 1.底层server
+    # runMy()
+    # 2.应用Flask，web.py等
+    from myFlaskApp import app as application
+    from wsgiref.simple_server import make_server
+    httpd = make_server('localhost', 8080, application)
+    print('web app running:localhost:8080')
+    httpd.serve_forever()
+
 #if __name__ == "__main__":
 #    from sys import argv
 
