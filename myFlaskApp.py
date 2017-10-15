@@ -31,10 +31,18 @@ def test_path ():
 
 @app.route('/get', methods=['GET'])
 def test_get ():
-    return 'get 请求'
+    if request.method == 'GET':
+        data = request.args
+        print data
+        return 'get 请求的参数{data}'.format(data = data)
+    else:
+        return '不是get 请求'
 
 @app.route('/post', methods=['POST'])
 def test_post ():
+    if request.method == 'POST':
+        data = request.form
+        print data
     return 'post 请求'
 
 @app.route('/cacheSet', methods=['GET','POST'])
@@ -61,6 +69,16 @@ def testCacheGet():
 
 @app.route('/weixin/test', methods=['GET','POST'])
 def weixinTest():
+    print '+++start controller or action:{funcNam}+++'.format(funcNam = 'weixinTest')
+    if request.method == 'GET':
+        data = request.args
+        print 'get请求参数:{d}'.format(d=data)
+    elif request.method == 'POST':
+#         request.form.get('myid')    #input
+        data = request.form
+        print 'post请求参数:{d}'.format(d=data)
+    else:
+        print '未知请求类型'
     f = open("douban2.txt", "r")
     varStr = f.read()
     print varStr
