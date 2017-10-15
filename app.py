@@ -59,7 +59,7 @@ if __name__ == "__main__":
     # 2.应用Flask，web.py等
     from myFlaskApp import app as application
     from wsgiref.simple_server import make_server
-    httpd = make_server('localhost', 8080, application)
+    httpd = make_server('', 8080, application)
     print('web app running:localhost:8080')
     httpd.serve_forever()
 
