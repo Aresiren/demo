@@ -157,12 +157,12 @@ def doGoogle():
     
     return 'google'
 
-@app.route('/google/search', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def doGoogles():
     '''
     https://www.google.com/search?q=baidu
     '''
-    print '/google/search'
+    print '/search'
     wd = ''
     if request.method == 'GET':
         data = request.args
