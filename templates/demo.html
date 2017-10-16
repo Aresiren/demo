@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+<title>My Webpage head title</title>
+</head>
+<body>
+	<ul id="navigation">
+		{% for item in navigation %}
+		<li><a href="{{ item.href }}">{{ item.caption }}</a></li> {% endfor %}
+	</ul>
+
+
+	<h1>My Webpage</h1>
+	{{ a_variable }} {{123}}
+	<div>{% if True %} yes {% endif %}</div>
+
+	<div>{% if True -%} no {%- endif %}</div>
+
+	{% raw %} {{w我 {% endraw %}
+</body>
+</html>
