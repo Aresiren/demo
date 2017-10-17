@@ -14,7 +14,7 @@ def obtainGoogleResult(wd):
     '''去请求谷歌
     https://www.google.com/search?q=baidu
     '''
-    realUrl = 'https://www.google.com/search?q={wd}'.format(wd = wd)
+    realUrl = 'https://www.google.com/search?q={wd}&hl=zh-CN&safe=off'.format(wd = wd)
     realResText = '谷歌'
     print realUrl
     req = urllib2.Request(realUrl)
