@@ -12,10 +12,13 @@ from flask import render_template
 from flask import request
 from flask import make_response
 
+import urllib
+
 from werkzeug.contrib.cache import SimpleCache
 from myWeixin import weixinCommon
 from mybaidu import baiduUtil
 from mygoogle import googleUtil
+# from . import main
 
 import os
 from flask import send_from_directory
@@ -129,6 +132,27 @@ def favicon():
                                'favicon.ico', 
                                mimetype='image/vnd.microsoft.icon'
                                )
+@app.route('/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png')  
+def googlelogo1():
+    '''
+    重定向请求(1)
+    '''
+    return send_from_directory(
+                               os.path.join(app.root_path, 'static/images/branding/googlelogo/2x'),
+                               'googlelogo_color_120x44dp.png', 
+                               mimetype='image/vnd.microsoft.icon'
+                               )
+
+@app.route('/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png')  
+def googlelogo2():
+    '''
+    重定向请求(2)
+    '''
+    return send_from_directory(
+                               os.path.join(app.root_path, 'static/images/branding/googlelogo/1x'),
+                               'googlelogo_color_272x92dp.png', 
+                               mimetype='image/vnd.microsoft.icon'
+                               )
 
 #搜索引擎
 #百度
@@ -147,15 +171,21 @@ def doBaidus():
         print data
         wd = data.get('wd','').encode('utf-8')
         print wd
-    htmlStr = baiduUtil.obtainBaiduResult(wd)
+#     htmlStr = baiduUtil.obtainBaiduResult(wd)
+#    urllib.quote(wd)-->URL编码
+    htmlStr = baiduUtil.obtainBaiduResult(urllib.quote(wd))
     return htmlStr 
 
 #谷歌
 @app.route('/google', methods=['GET'])
 def doGoogle():
     print '/google 谷歌搜索'
-    
-    return 'google'
+#     htmlStr = render_template('google.html')
+    f = open('templates/google.html','r')
+#     f = open("douban2.txt", "r")
+    htmlStr = f.read()
+#     return 'google'
+    return htmlStr
 
 @app.route('/search', methods=['GET'])
 def doGoogles():
@@ -169,7 +199,9 @@ def doGoogles():
         print data
         wd = data.get('q','').encode('utf-8')
         print wd
-    htmlStr = googleUtil.obtainGoogleResult(wd)
+#     htmlStr = googleUtil.obtainGoogleResult(wd)
+    #    urllib.quote(wd)-->URL编码
+    htmlStr = googleUtil.obtainGoogleResult(urllib.quote(wd))
     return htmlStr
 
 # if __name__ == '__main__':
