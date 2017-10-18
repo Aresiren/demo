@@ -186,7 +186,13 @@ def doGoogle():
 #     f = open("douban2.txt", "r")
 #     htmlStr = f.read()
 #     return 'google'
-    htmlStr = redirect(url_for('doBaidu'))#302 (测试doBaidu)(doGoogles) 将/google页面 重定向到 /search页面
+    htmlStr = redirect(url_for('doGoogles'))#302 (测试doBaidu)(doGoogles) 将/google页面 重定向到 /search页面
+    print '执行重定向...'
+#    htmlStr = redirect(url_for('doBaidu'))#302 (测试doBaidu)(doGoogles) 将/google页面 重定向到 /search页面
+
+#     htmlStr = f.read()
+#     return 'google'
+#    htmlStr = redirect(url_for('doBaidu'))#302 (测试doBaidu)(doGoogles) 将/google页面 重定向到 /search页面
     return htmlStr
 
 @app.route('/search', methods=['GET'])
