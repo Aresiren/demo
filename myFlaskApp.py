@@ -11,6 +11,7 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 from flask import make_response
+from flask import redirect,url_for
 
 import urllib
 
@@ -181,10 +182,12 @@ def doBaidus():
 def doGoogle():
     print '/google 谷歌搜索'
 #     htmlStr = render_template('google.html')
-    f = open('templates/google.html','r')
+#     f = open('templates/google.html','r')
 #     f = open("douban2.txt", "r")
-    htmlStr = f.read()
+#     htmlStr = f.read()
 #     return 'google'
+    htmlStr = redirect(url_for('doGoogles'))#302 (测试doBaidu)(doGoogles) 将/google页面 重定向到 /search页面
+    print '执行重定向...'
     return htmlStr
 
 @app.route('/search', methods=['GET'])

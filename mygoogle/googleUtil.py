@@ -23,5 +23,6 @@ def obtainGoogleResult(wd):
     realResText = urllib2.urlopen(req).read()
 #     soup = BeautifulSoup(realResText)
 #     print type(soup)
-    print realResText
+    print '直接请求谷歌官网'
+#     print realResText
     return realResText
