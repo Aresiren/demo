@@ -14,6 +14,7 @@ from flask import make_response
 from flask import redirect,url_for
 
 import urllib
+import re
 
 from werkzeug.contrib.cache import SimpleCache
 from myWeixin import weixinCommon
@@ -166,16 +167,42 @@ def doBaidu():
 @app.route('/s', methods=['GET'])
 def doBaidus():
     print ''
+    qwd = ''
     wd = ''
     if request.method == 'GET':
         data = request.args
         print data
         wd = data.get('wd','').encode('utf-8')
+        pattern = re.compile(r'&pn=\d+')
+        map0 = re.findall(pattern,wd)
+        pn0 = ''
+        if len(pn0):
+            pn0 = map0[0][4:]
+        
+        wd = re.sub('&(pn=|rsv_page=)\d+', "", wd)
         print wd
+        pn = data.get('pn','').encode('utf-8')
+        rsv_page = data.get('rsv_page','').encode('utf-8')
+        qwd = '' + wd
+#         if len(str(pn)) !=0:
+#             qwd += '&pn=' + pn
+        if len(str(rsv_page)) !=0:
+            qwd += '&rsv_page=' + rsv_page
+            if len(str(pn)) !=0:
+                qwd += '&pn=' + pn
+            else:
+                qwd += '&pn=' + pn0
+        else:
+            if len(str(pn)) !=0:
+                qwd += '&pn=' + pn
 #     htmlStr = baiduUtil.obtainBaiduResult(wd)
 #    urllib.quote(wd)-->URL编码
-    htmlStr = baiduUtil.obtainBaiduResult(urllib.quote(wd))
-    return htmlStr 
+    htmlStr = baiduUtil.obtainBaiduResult(urllib.quote(qwd))
+    rule = '\<input\ id\=\"kw\"\ name\=\"wd\"\ class\=\"s\_ipt\"\ value\=\"[\S\s]*\"\ maxlength\=\"[\d]+\"\ autocomplete\=\"off\"\>'
+    varStr2 = '''<input id="kw" name="wd" class="s_ipt" value="{wd}" maxlength="255" autocomplete="off">'''.format(wd=wd)
+    htmlNewStr = re.sub(rule, ""+varStr2, htmlStr)
+    res = make_response(htmlNewStr)
+    return res
 
 #谷歌
 @app.route('/google', methods=['GET'])
@@ -201,15 +228,19 @@ def doGoogles():
     https://www.google.com/search?q=baidu
     '''
     print '/search'
+    qwd = ''
     wd = ''
     if request.method == 'GET':
         data = request.args
         print data
         wd = data.get('q','').encode('utf-8')
         print wd
+        qwd += wd
+        start = data.get('start','').encode('utf-8')
+        qwd += '&start='+start
 #     htmlStr = googleUtil.obtainGoogleResult(wd)
     #    urllib.quote(wd)-->URL编码
-    htmlStr = googleUtil.obtainGoogleResult(urllib.quote(wd))
+    htmlStr = googleUtil.obtainGoogleResult(urllib.quote(qwd))
     return htmlStr
 
 # if __name__ == '__main__':
