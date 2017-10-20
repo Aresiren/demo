@@ -237,7 +237,9 @@ def doGoogles():
         print wd
         qwd += wd
         start = data.get('start','').encode('utf-8')
-        qwd += '&start='+start
+        if len(str(start)) !=0:
+            print ''
+            qwd += '&start='+start
 #     htmlStr = googleUtil.obtainGoogleResult(wd)
     #    urllib.quote(wd)-->URL编码
     htmlStr = googleUtil.obtainGoogleResult(urllib.quote(qwd))
